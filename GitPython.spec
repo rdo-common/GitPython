@@ -2,14 +2,14 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name:           GitPython
-Version:        0.1.6
-Release:        2%{?dist}
+Version:        0.2.0
+Release:        0.1.beta1%{?dist}
 Summary:        Python Git Library
 
 Group:          Development/Languages
 License:        BSD
 URL:            http://pypi.python.org/pypi/GitPython/
-Source0:        http://pypi.python.org/packages/source/G/GitPython/GitPython-%{version}.tar.gz
+Source0:        http://pypi.python.org/packages/source/G/GitPython/GitPython-%{version}-beta1.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch
@@ -27,7 +27,7 @@ and Chris Wanstrath.
 
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}-beta1
 
 
 %build
@@ -47,11 +47,14 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %doc README CHANGES LICENSE AUTHORS
 # For noarch packages: sitelib
-%{python_sitelib}/GitPython-%{version}-py*.egg-info
+%{python_sitelib}/GitPython-%{version}_beta1-py*.egg-info
 %{python_sitelib}/git
 
 
 %changelog
+* Mon May 24 2010 Devan Goodwin <dgoodwin@rm-rf.ca> - 0.2.0-0.1-beta1
+- Updating for 0.2.0-beta1.
+
 * Mon Jan 08 2010 Terje Rosten <terje.rosten@ntnu.no> - 0.1.6-2
 - Add python-setuptools to buildreq
 - Explicit file list
