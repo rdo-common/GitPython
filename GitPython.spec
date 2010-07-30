@@ -3,7 +3,7 @@
 
 Name:           GitPython
 Version:        0.2.0
-Release:        0.2.beta1%{?dist}
+Release:        0.3.beta1%{?dist}
 Summary:        Python Git Library
 
 Group:          Development/Languages
@@ -14,6 +14,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch
 BuildRequires:  python-devel python-setuptools
+Requires:       /usr/bin/git
 
 %description
 GitPython is a python library used to interact with Git repositories.
@@ -52,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jul 30 2010 Dennis Gilmore <dennis@ausil.us> - 0.2.0-0.3.beta1
+- Require /usr/bin/git
+
 * Wed Jul 21 2010 David Malcolm <dmalcolm@redhat.com> - 0.2.0-0.2.beta1
 - Rebuilt for https://fedoraproject.org/wiki/Features/Python_2.7/MassRebuild
 
