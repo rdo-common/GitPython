@@ -3,7 +3,7 @@
 
 Name:           GitPython
 Version:        0.2.0
-Release:        0.3.beta1%{?dist}
+Release:        0.4.beta1%{?dist}
 Summary:        Python Git Library
 
 Group:          Development/Languages
@@ -53,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Feb 07 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.2.0-0.4.beta1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
 * Fri Jul 30 2010 Dennis Gilmore <dennis@ausil.us> - 0.2.0-0.3.beta1
 - Require /usr/bin/git
 
