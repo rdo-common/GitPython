@@ -3,7 +3,7 @@
 
 Name:           GitPython
 Version:        0.2.0
-Release:        0.4.beta1%{?dist}
+Release:        0.5.beta1%{?dist}
 Summary:        Python Git Library
 
 Group:          Development/Languages
@@ -15,6 +15,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python-devel python-setuptools
 Requires:       /usr/bin/git
+Patch0:         0001-Match-any-number-of-leading-spaces-in-config-values.patch
 
 %description
 GitPython is a python library used to interact with Git repositories.
@@ -29,6 +30,7 @@ and Chris Wanstrath.
 
 %prep
 %setup -q -n %{name}-%{version}-beta1
+%patch0 -p1
 
 
 %build
@@ -53,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Feb 14 2011 Jesse Keating <jkeating@redhat.com> - 0.2.0-0.5.beta1
+- Fix parsing of config files
+
 * Mon Feb 07 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.2.0-0.4.beta1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 

@@ -1,0 +1,28 @@
+From 967b3a2b5a38f6c7ed28ee59284976c8e13fb771 Mon Sep 17 00:00:00 2001
+From: Jesse Keating <jkeating@redhat.com>
+Date: Mon, 14 Feb 2011 17:10:22 -0700
+Subject: [PATCH] Match any number of leading spaces in config values
+
+The regex comments state that any number of leading tabs or spaces
+should be allowed, however the regex was only catching zero or one
+space.  This allows multiple spaces.
+---
+ lib/git/config.py |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/lib/git/config.py b/lib/git/config.py
+index e5fd990..bf2cc39 100644
+--- a/lib/git/config.py
++++ b/lib/git/config.py
+@@ -101,7 +101,7 @@ class GitConfigParser(cp.RawConfigParser, object):
+     #} END configuration 
+     
+     OPTCRE = re.compile(
+-        r'\s?(?P<option>[^:=\s][^:=]*)'       # very permissive, incuding leading whitespace
++        r'\s*(?P<option>[^:=\s][^:=]*)'       # very permissive, incuding leading whitespace
+         r'\s*(?P<vi>[:=])\s*'                 # any number of space/tab,
+                                               # followed by separator
+                                               # (either : or =), followed
+-- 
+1.7.4
+
