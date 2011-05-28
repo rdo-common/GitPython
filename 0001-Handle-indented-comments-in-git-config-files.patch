@@ -1,7 +1,7 @@
-From e33a0621c1fb373bc8f07fc1d1e374f76e78088a Mon Sep 17 00:00:00 2001
+From 705d844aa102a2824bc860feb843e660e614771c Mon Sep 17 00:00:00 2001
 From: Jesse Keating <jkeating@redhat.com>
 Date: Fri, 27 May 2011 19:55:15 -0700
-Subject: [PATCH 2/2] Handle indented comments in git config files
+Subject: [PATCH 1/2] Handle indented comments in git config files
 
 It's perfectly valid for a git config file to contain comments inside
 sections, e.g.:
@@ -16,7 +16,7 @@ The git tools all parse this fine while GitPython was choking on it.
  1 files changed, 2 insertions(+), 1 deletions(-)
 
 diff --git a/lib/git/config.py b/lib/git/config.py
-index 236b4dc..7547a7d 100644
+index e5fd990..d893ebc 100644
 --- a/lib/git/config.py
 +++ b/lib/git/config.py
 @@ -190,13 +190,14 @@ class GitConfigParser(cp.RawConfigParser, object):

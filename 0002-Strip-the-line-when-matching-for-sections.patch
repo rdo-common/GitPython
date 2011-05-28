@@ -1,0 +1,29 @@
+From c8a83994c986d54fc5115783a2eec0d7e2bd1928 Mon Sep 17 00:00:00 2001
+From: Jesse Keating <jkeating@redhat.com>
+Date: Fri, 27 May 2011 20:48:40 -0700
+Subject: [PATCH 2/2] Strip the line when matching for sections
+
+The SECTCRE regex does not seem to ignore leading spaces before a
+section in the config and will cause a traceback.  However git itself
+parses these files just fine.  Stripping the line resolves the issue.
+https://bugzilla.redhat.com/show_bug.cgi?id=706218
+---
+ lib/git/config.py |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/lib/git/config.py b/lib/git/config.py
+index d893ebc..5db4f6c 100644
+--- a/lib/git/config.py
++++ b/lib/git/config.py
+@@ -204,7 +204,7 @@ class GitConfigParser(cp.RawConfigParser, object):
+                 continue
+             else:
+                 # is it a section header?
+-                mo = self.SECTCRE.match(line)
++                mo = self.SECTCRE.match(line.strip()) # strip the line to remove leading spaces
+                 if mo:
+                     sectname = mo.group('header')
+                     if sectname in self._sections:
+-- 
+1.7.4.4
+

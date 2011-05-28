@@ -17,10 +17,10 @@ BuildRequires:  python-devel python-setuptools
 Requires:       /usr/bin/git
 # https://github.com/gitpython-developers/GitPython/commit/ea5d365a93a98907a1d7c25d433efd06a854109e
 Patch0:         0001-Match-any-number-of-leading-spaces-in-config-values.patch
-# https://github.com/jkeating/GitPython/commit/d27cd97d8317094454510e904b49c5c537fa202c
-Patch1:         0001-Handle-indented-config-sections.patch
 # https://github.com/tmzullinger/GitPython/commit/69253459a4924e2bf71cf42cd5e2c1c9e33af137
-Patch2:         0002-Handle-indented-comments-in-git-config-files.patch
+Patch1:         0001-Handle-indented-comments-in-git-config-files.patch
+# https://github.com/jkeating/GitPython/commit/61d16f0a6e4e11ced051883117008d00e761d666
+Patch2:         0002-Strip-the-line-when-matching-for-sections.patch
 
 %description
 GitPython is a python library used to interact with Git repositories.
