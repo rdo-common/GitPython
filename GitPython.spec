@@ -3,7 +3,7 @@
 
 Name:           GitPython
 Version:        0.2.0
-Release:        0.5.beta1%{?dist}
+Release:        0.6.beta1%{?dist}
 Summary:        Python Git Library
 
 Group:          Development/Languages
@@ -15,7 +15,12 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python-devel python-setuptools
 Requires:       /usr/bin/git
+# https://github.com/gitpython-developers/GitPython/commit/ea5d365a93a98907a1d7c25d433efd06a854109e
 Patch0:         0001-Match-any-number-of-leading-spaces-in-config-values.patch
+# https://github.com/jkeating/GitPython/commit/d27cd97d8317094454510e904b49c5c537fa202c
+Patch1:         0001-Handle-indented-config-sections.patch
+# https://github.com/tmzullinger/GitPython/commit/69253459a4924e2bf71cf42cd5e2c1c9e33af137
+Patch2:         0002-Handle-indented-comments-in-git-config-files.patch
 
 %description
 GitPython is a python library used to interact with Git repositories.
@@ -31,6 +36,8 @@ and Chris Wanstrath.
 %prep
 %setup -q -n %{name}-%{version}-beta1
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 
 %build
@@ -55,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri May 27 2011 Jesse Keating <jkeating@redhat.com> - 0.2.0-0.6.beta1
+- Patches for indented parts of git config files
+
 * Mon Feb 14 2011 Jesse Keating <jkeating@redhat.com> - 0.2.0-0.5.beta1
 - Fix parsing of config files
 

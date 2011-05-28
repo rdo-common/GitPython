@@ -1,0 +1,40 @@
+From e33a0621c1fb373bc8f07fc1d1e374f76e78088a Mon Sep 17 00:00:00 2001
+From: Jesse Keating <jkeating@redhat.com>
+Date: Fri, 27 May 2011 19:55:15 -0700
+Subject: [PATCH 2/2] Handle indented comments in git config files
+
+It's perfectly valid for a git config file to contain comments inside
+sections, e.g.:
+
+[core]
+    # This is a shared repository
+    sharedRepository = true
+
+The git tools all parse this fine while GitPython was choking on it.
+---
+ lib/git/config.py |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+
+diff --git a/lib/git/config.py b/lib/git/config.py
+index 236b4dc..7547a7d 100644
+--- a/lib/git/config.py
++++ b/lib/git/config.py
+@@ -190,13 +190,14 @@ class GitConfigParser(cp.RawConfigParser, object):
+         optname = None
+         lineno = 0
+         e = None                                  # None, or an exception
++        comment_re = re.compile('^\s*[#;]')
+         while True:
+             line = fp.readline()
+             if not line:
+                 break
+             lineno = lineno + 1
+             # comment or blank line?
+-            if line.strip() == '' or line[0] in '#;':
++            if line.strip() == '' or comment_re.match(line):
+                 continue
+             if line.split(None, 1)[0].lower() == 'rem' and line[0] in "rR":
+                 # no leading whitespace
+-- 
+1.7.4.4
+
