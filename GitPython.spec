@@ -2,25 +2,21 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name:           GitPython
-Version:        0.2.0
-Release:        0.6.beta1%{?dist}
+Version:        0.3.2
+Release:        0.1.RC1%{?dist}
 Summary:        Python Git Library
 
 Group:          Development/Languages
 License:        BSD
 URL:            http://pypi.python.org/pypi/GitPython/
-Source0:        http://pypi.python.org/packages/source/G/GitPython/GitPython-%{version}-beta1.tar.gz
+# http://pypi.python.org/packages/source/G/GitPython/GitPython-0.3.2.RC1.tar.gz#md5=849082fe29adc653a3621465213cab96
+Source0:        http://pypi.python.org/packages/source/G/GitPython/GitPython-0.3.2.RC1.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch
 BuildRequires:  python-devel python-setuptools
 Requires:       /usr/bin/git
-# https://github.com/gitpython-developers/GitPython/commit/ea5d365a93a98907a1d7c25d433efd06a854109e
-Patch0:         0001-Match-any-number-of-leading-spaces-in-config-values.patch
-# https://github.com/tmzullinger/GitPython/commit/69253459a4924e2bf71cf42cd5e2c1c9e33af137
-Patch1:         0001-Handle-indented-comments-in-git-config-files.patch
-# https://github.com/jkeating/GitPython/commit/61d16f0a6e4e11ced051883117008d00e761d666
-Patch2:         0002-Strip-the-line-when-matching-for-sections.patch
+Requires:       python-gitdb
 
 %description
 GitPython is a python library used to interact with Git repositories.
@@ -34,10 +30,7 @@ and Chris Wanstrath.
 
 
 %prep
-%setup -q -n %{name}-%{version}-beta1
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%setup -q -n %{name}-%{version}.RC1
 
 
 %build
@@ -55,13 +48,16 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc README CHANGES LICENSE AUTHORS
+%doc CHANGES LICENSE AUTHORS
 # For noarch packages: sitelib
-%{python_sitelib}/GitPython-%{version}_beta1-py*.egg-info
+%{python_sitelib}/GitPython-%{version}.RC1-py*.egg-info
 %{python_sitelib}/git
 
 
 %changelog
+* Fri Sep 23 2011 Jesse Keating <jkeating@redhat.com> - 0.3.2-0.1.RC1
+- Update to 0.3.2 RC1
+
 * Fri May 27 2011 Jesse Keating <jkeating@redhat.com> - 0.2.0-0.6.beta1
 - Patches for indented parts of git config files
 
