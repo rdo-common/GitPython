@@ -3,7 +3,7 @@
 
 Name:           GitPython
 Version:        0.3.2
-Release:        0.1.RC1%{?dist}
+Release:        0.2.RC1%{?dist}
 Summary:        Python Git Library
 
 Group:          Development/Languages
@@ -55,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jan 12 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.3.2-0.2.RC1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Fri Sep 23 2011 Jesse Keating <jkeating@redhat.com> - 0.3.2-0.1.RC1
 - Update to 0.3.2 RC1
 
