@@ -3,7 +3,7 @@
 
 Name:           GitPython
 Version:        0.3.2
-Release:        0.5.RC1%{?dist}
+Release:        0.6.RC1%{?dist}
 Summary:        Python Git Library
 
 Group:          Development/Languages
@@ -11,11 +11,12 @@ License:        BSD
 URL:            http://pypi.python.org/pypi/GitPython/
 # http://pypi.python.org/packages/source/G/GitPython/GitPython-0.3.2.RC1.tar.gz#md5=849082fe29adc653a3621465213cab96
 Source0:        http://pypi.python.org/packages/source/G/GitPython/GitPython-0.3.2.RC1.tar.gz
+Patch1:         0001-GPG-signature-support-on-commit-object.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch
 BuildRequires:  python-devel python-setuptools
-Requires:       /usr/bin/git
+Requires:       git
 Requires:       python-gitdb
 
 %description
@@ -31,7 +32,7 @@ and Chris Wanstrath.
 
 %prep
 %setup -q -n %{name}-%{version}.RC1
-
+%patch1 -p1
 
 %build
 %{__python} setup.py build
@@ -55,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Dec 07 2013 Dennis Gilmore <dennis@ausil.us> - 0.3.2-0.6-RC1
+- apply patch from Igor Gnatenko for bz#1010706
+
 * Fri Aug 02 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.3.2-0.5.RC1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
