@@ -3,7 +3,7 @@
 
 Name:           GitPython
 Version:        0.3.2
-Release:        0.6.RC1%{?dist}
+Release:        0.7.RC1%{?dist}
 Summary:        Python Git Library
 
 Group:          Development/Languages
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jun 06 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.3.2-0.7.RC1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Sat Dec 07 2013 Dennis Gilmore <dennis@ausil.us> - 0.3.2-0.6-RC1
 - apply patch from Igor Gnatenko for bz#1010706
 
