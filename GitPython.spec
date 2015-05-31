@@ -56,6 +56,10 @@ find python3 -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
 find python2 -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python2}|'
 
+pushd python2
+cp AUTHORS CHANGES LICENSE ../
+popd
+
 %build
 pushd python2
 %{__python2} setup.py build
