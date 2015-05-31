@@ -1,21 +1,26 @@
-# sitelib for noarch packages, sitearch for others (remove the unneeded one)
-%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+f 0%{?fedora} > 12
+%global with_python3 1
+%else
+%if 0%{?rhel} && 0%{?rhel} <= 7
+%{!?__python2: %global __python2 /usr/bin/python2}
+%{!?python2_sitelib: %global python2_sitelib %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
+%else
+%global with_python3 1
+%endif
+%endif
 
 Name:           GitPython
-Version:        0.3.2
-Release:        0.7.RC1%{?dist}
+Version:        1.0.1
+Release:        1%{?dist}
 Summary:        Python Git Library
 
 Group:          Development/Languages
 License:        BSD
 URL:            http://pypi.python.org/pypi/GitPython/
-# http://pypi.python.org/packages/source/G/GitPython/GitPython-0.3.2.RC1.tar.gz#md5=849082fe29adc653a3621465213cab96
-Source0:        http://pypi.python.org/packages/source/G/GitPython/GitPython-0.3.2.RC1.tar.gz
-Patch1:         0001-GPG-signature-support-on-commit-object.patch
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Source0:        http://pypi.python.org/packages/source/G/%{name}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  python-devel python-setuptools
+BuildRequires:  python2-devel python-setuptools
 Requires:       git
 Requires:       python-gitdb
 
@@ -29,33 +34,68 @@ trees, blobs, etc.
 GitPython is a port of the grit library in Ruby created by Tom Preston-Werner
 and Chris Wanstrath.
 
+%if %{with python3}
+%package -n python3-GitPython
+Summary:        Python3 Git Library
+Requires:       git
+Requires:       python3-gitdb
+BuildRequires:  python3-devel python3-setuptools
+
+%description -n python3-GitPython
+%{description}
+%endif
 
 %prep
-%setup -q -n %{name}-%{version}.RC1
-%patch1 -p1
+%setup -qc
+mv %{name}-%{version} python2
+
+%if 0%{?with_python3}
+cp -a python2 python3
+find python3 -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
+%endif # with_python3
+
+find python2 -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python2}|'
 
 %build
-%{__python} setup.py build
+pushd python2
+%{__python2} setup.py build
+popd
 
+%if %{with python3}
+pushd python3
+%{__python3} setup.py build
+popd
+%endif
 
 %install
-rm -rf $RPM_BUILD_ROOT
-%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
-
- 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
+pushd python2
+%{__python2} setup.py install -O1 --skip-build --root %{buildroot}
+popd
+%if %{with python3}
+pushd python3
+%{__python3} setup.py install -O1 --skip-build --root %{buildroot}
+popd
+%endif
 
 %files
-%defattr(-,root,root,-)
-%doc CHANGES LICENSE AUTHORS
-# For noarch packages: sitelib
-%{python_sitelib}/GitPython-%{version}.RC1-py*.egg-info
-%{python_sitelib}/git
+%license LICENSE
+%doc CHANGES AUTHORS
+%{python2_sitelib}/GitPython-%{version}-py?.?.egg-info
+%{python2_sitelib}/git/
 
+%if %{with python3}
+%files -n python3-GitPython
+%license LICENSE
+%doc CHANGES AUTHORS
+%{python3_sitelib}/GitPython-%{version}-py?.?.egg-info
+%{python3_sitelib}/git/
+%endif
 
 %changelog
+* Sun May 31 2015 Dennis Gilmore <dennis@ausil.us> - 1.0.1-1
+- Update to 1.0.1
+- Add python3 build
+
 * Fri Jun 06 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.3.2-0.7.RC1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
