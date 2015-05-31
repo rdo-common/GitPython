@@ -1,4 +1,4 @@
-f 0%{?fedora} > 12
+%if 0%{?fedora} > 12
 %global with_python3 1
 %else
 %if 0%{?rhel} && 0%{?rhel} <= 7
