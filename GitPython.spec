@@ -11,7 +11,7 @@
 
 Name:           GitPython
 Version:        1.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Git Library
 
 Group:          Development/Languages
@@ -96,6 +96,9 @@ popd
 %endif
 
 %changelog
+* Tue Jun 16 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Sun May 31 2015 Dennis Gilmore <dennis@ausil.us> - 1.0.1-1
 - Update to 1.0.1
 - Add python3 build
