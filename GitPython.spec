@@ -1,17 +1,16 @@
-%if 0%{?fedora} > 12
+%if 0%{?fedora}
 %global with_python3 1
-%else
+%endif
 %if 0%{?rhel} && 0%{?rhel} <= 7
 %{!?__python2: %global __python2 /usr/bin/python2}
 %{!?python2_sitelib: %global python2_sitelib %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 %else
 %global with_python3 1
 %endif
-%endif
 
 Name:           GitPython
 Version:        1.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python Git Library
 
 Group:          Development/Languages
@@ -21,7 +20,7 @@ Source0:        http://pypi.python.org/packages/source/G/%{name}/%{name}-%{versi
 
 BuildArch:      noarch
 BuildRequires:  python2-devel python-setuptools
-Requires:       git
+Requires:       git-core
 Requires:       python-gitdb
 
 %description
@@ -37,7 +36,7 @@ and Chris Wanstrath.
 %if %{with python3}
 %package -n python3-GitPython
 Summary:        Python3 Git Library
-Requires:       git
+Requires:       git-core
 Requires:       python3-gitdb
 BuildRequires:  python3-devel python3-setuptools
 
@@ -96,6 +95,9 @@ popd
 %endif
 
 %changelog
+* Sun Dec 27 2015 Peter Robinson <pbrobinson@fedoraproject.org> 1.0.1-4
+- Require git-core
+
 * Tue Nov 10 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
 
