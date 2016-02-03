@@ -10,7 +10,7 @@
 
 Name:           GitPython
 Version:        1.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python Git Library
 
 Group:          Development/Languages
@@ -95,6 +95,9 @@ popd
 %endif
 
 %changelog
+* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
 * Sun Dec 27 2015 Peter Robinson <pbrobinson@fedoraproject.org> 1.0.1-4
 - Require git-core
 
