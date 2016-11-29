@@ -9,14 +9,14 @@
 %endif
 
 Name:           GitPython
-Version:        1.0.1
-Release:        6%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Python Git Library
 
 Group:          Development/Languages
 License:        BSD
-URL:            http://pypi.python.org/pypi/GitPython/
-Source0:        http://pypi.python.org/packages/source/G/%{name}/%{name}-%{version}.tar.gz
+URL:            https://pypi.python.org/pypi/GitPython/
+Source0:        https://files.pythonhosted.org/packages/source/G/%{name}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python2-devel python-setuptools
@@ -95,6 +95,9 @@ popd
 %endif
 
 %changelog
+* Tue Nov 29 2016 Lubomír Sedlář <lsedlar@redhat.com> - 2.1.0-1
+- New upstream release
+
 * Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.1-6
 - https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
 
