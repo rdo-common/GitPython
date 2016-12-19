@@ -10,7 +10,7 @@
 
 Name:           GitPython
 Version:        2.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Git Library
 
 Group:          Development/Languages
@@ -95,6 +95,9 @@ popd
 %endif
 
 %changelog
+* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 2.1.0-2
+- Rebuild for Python 3.6
+
 * Tue Nov 29 2016 Lubomír Sedlář <lsedlar@redhat.com> - 2.1.0-1
 - New upstream release
 
