@@ -3,7 +3,7 @@
 
 Name:           %{srcname}
 Version:        2.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Git Library
 
 License:        BSD
@@ -34,6 +34,10 @@ BuildRequires:  python2-devel
 BuildRequires:  python2-setuptools
 Requires:       git-core
 Requires:       python2-gitdb >= 2.0.0
+
+# Old name
+Provides:       %{srcname} = %{?epoch:%{epoch}:}%{version}-%{release}
+Obsoletes:      %{srcname} < %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description -n python2-%{srcname} %{_description}
 
@@ -75,6 +79,9 @@ Python 3 version.
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Wed Dec 28 2016 Igor Gnatenko <i.gnatenko.brain@gmail.com> - 2.1.1-2
+- Provide/Obsolete old name
+
 * Wed Dec 28 2016 Igor Gnatenko <i.gnatenko.brain@gmail.com> - 2.1.1-1
 - Update to 2.1.1
 - Modernize spec
