@@ -1,100 +1,84 @@
-%if 0%{?fedora}
-%global with_python3 1
-%endif
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%{!?__python2: %global __python2 /usr/bin/python2}
-%{!?python2_sitelib: %global python2_sitelib %(%{__python2} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
-%else
-%global with_python3 1
-%endif
+%global modname git
+%global srcname GitPython
 
-Name:           GitPython
-Version:        2.1.0
-Release:        2%{?dist}
+Name:           %{srcname}
+Version:        2.1.1
+Release:        1%{?dist}
 Summary:        Python Git Library
 
-Group:          Development/Languages
 License:        BSD
-URL:            https://pypi.python.org/pypi/GitPython/
-Source0:        https://files.pythonhosted.org/packages/source/G/%{name}/%{name}-%{version}.tar.gz
+URL:            https://github.com/gitpython-developers/GitPython
+Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  python2-devel python-setuptools
+
+%global _description \
+GitPython is a python library used to interact with git repositories,\
+high-level like git-porcelain, or low-level like git-plumbing.\
+\
+It provides abstractions of git objects for easy access of repository data,\
+and additionally allows you to access the git repository more directly using\
+either a pure python implementation, or the faster, but more resource\
+intensive git command implementation.\
+\
+The object database implementation is optimized for handling large quantities\
+of objects and large datasets, which is achieved by using\
+low-level structures and data streaming.
+
+%description %{_description}
+
+%package -n python2-%{srcname}
+Summary:        %{summary}
+%{?python_provide:%python_provide python3-%{srcname}}
+BuildRequires:  python2-devel
+BuildRequires:  python2-setuptools
 Requires:       git-core
-Requires:       python-gitdb
+Requires:       python2-gitdb >= 2.0.0
 
-%description
-GitPython is a python library used to interact with Git repositories.
+%description -n python2-%{srcname} %{_description}
 
-GitPython provides object model access to your git repository. Once you have
-created a repository object, you can traverse it to find parent commit(s),
-trees, blobs, etc.
+Python 2 version.
 
-GitPython is a port of the grit library in Ruby created by Tom Preston-Werner
-and Chris Wanstrath.
-
-%if %{with python3}
-%package -n python3-GitPython
-Summary:        Python3 Git Library
+%package -n python3-%{srcname}
+Summary:        %{summary}
+%{?python_provide:%python_provide python3-%{srcname}}
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 Requires:       git-core
-Requires:       python3-gitdb
-BuildRequires:  python3-devel python3-setuptools
+Requires:       python3-gitdb >= 2.0.0
 
-%description -n python3-GitPython
-%{description}
-%endif
+%description -n python3-%{srcname} %{_description}
+
+Python 3 version.
 
 %prep
-%setup -qc
-mv %{name}-%{version} python2
-
-%if 0%{?with_python3}
-cp -a python2 python3
-find python3 -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
-%endif # with_python3
-
-find python2 -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python2}|'
-
-pushd python2
-cp AUTHORS CHANGES LICENSE ../
-popd
+%autosetup -n %{srcname}-%{version}
 
 %build
-pushd python2
-%{__python2} setup.py build
-popd
-
-%if %{with python3}
-pushd python3
-%{__python3} setup.py build
-popd
-%endif
+%py2_build
+%py3_build
 
 %install
-pushd python2
-%{__python2} setup.py install -O1 --skip-build --root %{buildroot}
-popd
-%if %{with python3}
-pushd python3
-%{__python3} setup.py install -O1 --skip-build --root %{buildroot}
-popd
-%endif
+%py2_install
+%py3_install
 
-%files
+%files -n python2-%{srcname}
 %license LICENSE
 %doc CHANGES AUTHORS
-%{python2_sitelib}/GitPython-%{version}-py?.?.egg-info
-%{python2_sitelib}/git/
+%{python2_sitelib}/%{srcname}-*.egg-info/
+%{python2_sitelib}/%{modname}/
 
-%if %{with python3}
-%files -n python3-GitPython
+%files -n python3-%{srcname}
 %license LICENSE
 %doc CHANGES AUTHORS
-%{python3_sitelib}/GitPython-%{version}-py?.?.egg-info
-%{python3_sitelib}/git/
-%endif
+%{python3_sitelib}/%{srcname}-*.egg-info/
+%{python3_sitelib}/%{modname}/
 
 %changelog
+* Wed Dec 28 2016 Igor Gnatenko <i.gnatenko.brain@gmail.com> - 2.1.1-1
+- Update to 2.1.1
+- Modernize spec
+
 * Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 2.1.0-2
 - Rebuild for Python 3.6
 
