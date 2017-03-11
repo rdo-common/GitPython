@@ -2,8 +2,8 @@
 %global srcname GitPython
 
 Name:           %{srcname}
-Version:        2.1.1
-Release:        3%{?dist}
+Version:        2.1.3
+Release:        1%{?dist}
 Summary:        Python Git Library
 
 License:        BSD
@@ -79,6 +79,9 @@ Python 3 version.
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Sat Mar 11 2017 Igor Gnatenko <ignatenko@redhat.com> - 2.1.3-1
+- Update to 2.1.3
+
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
