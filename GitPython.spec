@@ -2,7 +2,7 @@
 %global srcname GitPython
 
 Name:           %{srcname}
-Version:        2.1.5
+Version:        2.1.7
 Release:        1%{?dist}
 Summary:        Python Git Library
 
@@ -79,6 +79,9 @@ Python 3 version.
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Sat Sep 30 2017 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 2.1.7-1
+- Update to 2.1.7
+
 * Tue Aug 08 2017 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 2.1.5-1
 - Update to 2.1.5
 
