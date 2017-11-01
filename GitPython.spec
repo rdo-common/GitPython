@@ -3,12 +3,17 @@
 
 Name:           %{srcname}
 Version:        2.1.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Git Library
 
 License:        BSD
 URL:            https://github.com/gitpython-developers/GitPython
 Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+# Git 2.15 changes output
+# https://bugzilla.redhat.com/show_bug.cgi?id=1508639
+# https://github.com/gitpython-developers/GitPython/issues/687
+# https://github.com/gitpython-developers/GitPython/pull/689
+Patch0001:      0001-recognize-the-new-packed-ref-header-format.patch
 
 BuildArch:      noarch
 
@@ -56,7 +61,7 @@ Requires:       python3-gitdb >= 2.0.0
 Python 3 version.
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 
 %build
 %py2_build
@@ -79,6 +84,9 @@ Python 3 version.
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Wed Nov 01 2017 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 2.1.7-2
+- Fix interaction with git 2.15
+
 * Sat Sep 30 2017 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 2.1.7-1
 - Update to 2.1.7
 
