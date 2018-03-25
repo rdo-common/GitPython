@@ -2,8 +2,8 @@
 %global srcname GitPython
 
 Name:           %{srcname}
-Version:        2.1.8
-Release:        2%{?dist}
+Version:        2.1.9
+Release:        1%{?dist}
 Summary:        Python Git Library
 
 License:        BSD
@@ -79,6 +79,9 @@ Python 3 version.
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Sun Mar 25 2018 Kevin Fenzi <kevin@scrye.com> - 2.1.9-1
+- Update to 2.9.1. Fixes bug #1560214
+
 * Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
@@ -174,7 +177,7 @@ Python 3 version.
 * Mon May 24 2010 Devan Goodwin <dgoodwin@rm-rf.ca> - 0.2.0-0.1-beta1
 - Updating for 0.2.0-beta1.
 
-* Mon Jan 08 2010 Terje Rosten <terje.rosten@ntnu.no> - 0.1.6-2
+* Fri Jan 08 2010 Terje Rosten <terje.rosten@ntnu.no> - 0.1.6-2
 - Add python-setuptools to buildreq
 - Explicit file list
 - Use version macro in source url
