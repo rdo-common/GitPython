@@ -2,7 +2,7 @@
 %global srcname GitPython
 
 Name:           %{srcname}
-Version:        2.1.9
+Version:        2.1.10
 Release:        1%{?dist}
 Summary:        Python Git Library
 
@@ -79,6 +79,9 @@ Python 3 version.
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Sat May 19 2018 Kevin Fenzi <kevin@scrye.com> - 2.1.10-1
+- Update to 2.9.10. Fixes bug #1580033
+
 * Sun Mar 25 2018 Kevin Fenzi <kevin@scrye.com> - 2.1.9-1
 - Update to 2.9.1. Fixes bug #1560214
 
