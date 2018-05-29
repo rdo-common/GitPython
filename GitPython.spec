@@ -1,6 +1,10 @@
 %global modname git
 %global srcname GitPython
 
+%if 0%{?fedora}
+%global with_python3 1
+%endif
+
 Name:           %{srcname}
 Version:        2.1.10
 Release:        1%{?dist}
@@ -29,7 +33,7 @@ low-level structures and data streaming.
 
 %package -n python2-%{srcname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
+%{?python_provide:%python_provide python2-%{srcname}}
 BuildRequires:  python2-devel
 BuildRequires:  python2-setuptools
 Requires:       git-core
@@ -43,6 +47,7 @@ Obsoletes:      %{srcname} < %{?epoch:%{epoch}:}%{version}-%{release}
 
 Python 2 version.
 
+%if 0%{?with_python3}
 %package -n python3-%{srcname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
@@ -54,17 +59,22 @@ Requires:       python3-gitdb >= 2.0.0
 %description -n python3-%{srcname} %{_description}
 
 Python 3 version.
+%endif
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
 
 %build
 %py2_build
+%if 0%{?with_python3}
 %py3_build
+%endif
 
 %install
 %py2_install
+%if 0%{?with_python3}
 %py3_install
+%endif
 
 %files -n python2-%{srcname}
 %license LICENSE
@@ -72,11 +82,13 @@ Python 3 version.
 %{python2_sitelib}/%{srcname}-*.egg-info/
 %{python2_sitelib}/%{modname}/
 
+%if 0%{?with_python3}
 %files -n python3-%{srcname}
 %license LICENSE
 %doc CHANGES AUTHORS
 %{python3_sitelib}/%{srcname}-*.egg-info/
 %{python3_sitelib}/%{modname}/
+%endif
 
 %changelog
 * Sat May 19 2018 Kevin Fenzi <kevin@scrye.com> - 2.1.10-1
